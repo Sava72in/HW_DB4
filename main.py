@@ -28,13 +28,13 @@ for record in data:
 session.commit()
 session.close()
 find = input("Введите имя издателя : ")
-q = """select b.title ,s2."name" ,s3.price ,s3.date_sale 
-from publisher p 
-left join book b on p.id = b.id_publisher 
-left join stock s on b.id = s.id_book 
-left join shop s2 on s.id_shop = s.id 
-left join sale s3 on s3.id_stock = s2.id 
-where p.name = '{}' and s3.date_sale notnull; """.format(find)
+q = """select b.title , s3."name" ,s.price ,s.date_sale 
+from sale s 
+join stock s2 on s.id_stock = s2.id 
+join shop s3 on s2.id_shop = s3.id 
+join book b on s2.id_book = b.id 
+join publisher p on b.id_publisher =p.id 
+where p.name = '{}' ; """.format(find)
 for i in con.execute(text(q)).fetchall():
     print(f'{i[0]} | {i[1]} | {i[2]} | {i[3]}')
 
