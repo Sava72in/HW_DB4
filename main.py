@@ -27,7 +27,7 @@ for record in data:
     session.add(model(id=record.get('pk'), **record.get('fields')))
 session.commit()
 session.close()
-find = input("Введите имя издателя или id: ")
+find = input("Введите имя издателя : ")
 q = """select b.title ,s2."name" ,s3.price ,s3.date_sale 
 from publisher p 
 left join book b on p.id = b.id_publisher 
